@@ -27,6 +27,7 @@ cat <<EOF
    make build
    make score
    make reco
+   make app-smoke
 
 Tips:
 - macOS users can install pyenv with Homebrew: brew install pyenv pyenv-virtualenv

@@ -61,7 +61,6 @@ def main() -> None:
         st.metric("Grade A/B share", f"{grade_share:.1f}%" if pd.notna(grade_share) else "—")
 
     st.divider()
-    st.subheader("Quick actions")
     actions = st.columns(3)
     with actions[0]:
         quick_nav_button("🔎 Search foods", "Search.py")

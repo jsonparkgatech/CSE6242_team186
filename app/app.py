@@ -36,10 +36,10 @@ def main() -> None:
     """Configure multipage navigation and run the selected page."""
     pages = [
         st.Page("Home.py", title="Nutrition Explorer", icon="🥗", default=True),
-        st.Page("Search.py", title="Search Foods", icon=":material/search:", url_path="search"),
+        st.Page("Search.py", title="🔎 Search", icon=":material/search:", url_path="search"),
         st.Page("Detail.py", title="Food Detail", icon=":material/info:", url_path="detail"),
-        st.Page("Compare.py", title="Compare Foods", icon=":material/bar_chart:", url_path="compare"),
-        st.Page("Substitute.py", title="Find Substitutes", icon=":material/sync_alt:", url_path="substitute"),
+        st.Page("Compare.py", title="📊 Compare", icon=":material/bar_chart:", url_path="compare"),
+        st.Page("Substitute.py", title="🔁 Substitute", icon=":material/sync_alt:", url_path="substitute"),
     ]
     current_page = st.navigation(pages, position="hidden")
     current_page.run()

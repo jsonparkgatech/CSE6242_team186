@@ -570,7 +570,11 @@ def find_items_optimized(df: pd.DataFrame, q: str, max_rows: int = 500) -> pd.Da
     if "_search_text" in results.columns:
         results = results.drop("_search_text", axis=1)
     
-    return results.head(max_rows)
+    # Only apply limit if max_rows is reasonable (to avoid memory issues)
+    if max_rows and max_rows < len(results):
+        return results.head(max_rows)
+    else:
+        return results
 
 
 @st.cache_resource(show_spinner=False)

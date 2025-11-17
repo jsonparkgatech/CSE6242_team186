@@ -34,7 +34,8 @@ import yaml
 import streamlit as st
 
 from app.utils import load_service_or_error, page_link_button, render_nav
-from src.reco import get_substitutions
+# Use fast substitute algorithm (minimal version without external dependencies)
+from src.minimal_fast_reco import get_fast_substitutions as get_substitutions
 
 DEFAULT_CONSTRAINTS = {
     "min_score_gain": 10,
@@ -140,7 +141,7 @@ def main() -> None:
     st.title("Find Substitutes")
     render_nav("Substitute")
     service = load_service_or_error()
-    dataset = service.dataset
+    dataset = service.sample_dataset  # Use fast sample dataset for Substitute
 
     st.markdown(
         "Pick a baseline food, tweak the substitution constraints, and surface healthier neighbors "
@@ -174,8 +175,7 @@ def main() -> None:
             fdc_id,
             k=5,
             constraints=constraints,
-            foods=dataset,
-            nn_index=service.neighbors if not service.neighbors.empty else None,
+            foods_df=dataset,
         )
         if subs.empty:
             st.warning("No substitutions met the current constraints. Try relaxing them.")

@@ -49,3 +49,4 @@ src/ml/__pycache__/train.cpython-313.pyc
 src/service/__pycache__/__init__.cpython-313.pyc
 src/service/__pycache__/predictor.cpython-313.pyc
 .DS_Store
+*.pyc

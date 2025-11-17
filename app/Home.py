@@ -61,16 +61,6 @@ def main() -> None:
         st.metric("Grade A/B share", f"{grade_share:.1f}%" if pd.notna(grade_share) else "—")
 
     st.divider()
-    st.subheader("Quick actions")
-    actions = st.columns(3)
-    with actions[0]:
-        quick_nav_button("🔎 Search foods", "Search.py")
-    with actions[1]:
-        quick_nav_button("📊 Compare items", "Compare.py")
-    with actions[2]:
-        quick_nav_button("🔁 Find substitutes", "Substitute.py")
-
-    st.divider()
     st.subheader("Nutrient highlights")
     highlight_cols = st.columns(2)
     if "sodium_mg_per100g" in dataset.columns:

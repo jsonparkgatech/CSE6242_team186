@@ -31,6 +31,8 @@ except Exception:
 import pandas as pd
 import streamlit as st
 import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 
 from app.utils import load_service_or_error, render_nav, quick_nav_button
 from src.scoring_system import apply_box_cox_normalization, assign_grades, get_score_statistics, get_grade_distribution
@@ -107,57 +109,27 @@ def main() -> None:
         st.subheader("Score distribution")
         st.info("No valid scores found for distribution analysis.")
 
-    # Feature histograms
-    st.subheader("Feature distributions")
-    
-    # Define nutrient features (removed protein and carbs)
-    nutrient_features = [
-        "total_fat_g_per100g",
-        "energy_kcal_per100g",
-        "sugar_g_per100g"
-    ]
-    
-    # Create columns for feature histograms
-    feature_cols = st.columns(len(nutrient_features))
-    
-    for i, feature in enumerate(nutrient_features):
-        with feature_cols[i]:
-            if feature in dataset.columns:
-                feature_data = dataset[feature].dropna()
-                if len(feature_data) > 0:
-                    # Create histogram for this feature
-                    min_val = feature_data.min()
-                    max_val = feature_data.max()
-                    
-                    # Sample if too many values
-                    if len(feature_data) > 1000:
-                        feature_sample = feature_data.sample(1000)
-                    else:
-                        feature_sample = feature_data
-                    
-                    # Create bins
-                    bins = pd.cut(feature_sample, bins=10, precision=0)
-                    bin_counts = bins.value_counts().sort_index()
-                    
-                    if len(bin_counts) > 0:
-                        chart_data = pd.DataFrame({'Count': bin_counts.values})
-                        st.bar_chart(chart_data)
-                        st.caption(f"{feature.replace('_', ' ').title()}")
-            else:
-                st.caption(f"{feature.replace('_', ' ').title()}: Not available")
-
-    # Grade distribution chart using new grading system with 1.333x multiplier
+    # Grade distribution pie chart using new grading system with 1.333x multiplier
     st.subheader("Grade distribution (A: 80-100, B: 60-80, C: 40-60, D: 20-40, F: 0-20)")
     if grade_dist:
         total_grades = sum(grade_dist.values())
-        grade_pcts = {grade: round(count / total_grades * 100, 0) for grade, count in grade_dist.items()}
+        grade_pcts = {grade: round(count / total_grades * 100, 1) for grade, count in grade_dist.items()}
         
-        # Create horizontal bar chart (grades on y-axis, percentage on x-axis)
-        chart_data = pd.DataFrame({
-            'Percentage': list(grade_pcts.values())
-        }, index=list(grade_pcts.keys()))
+        # Create pie chart with better colors
+        grades = list(grade_pcts.keys())
+        percentages = list(grade_pcts.values())
+        colors = ['#2E8B57', '#90EE90', '#FFD700', '#FFA500', '#FF6B6B']  # Green to red
         
-        st.bar_chart(chart_data)
+        fig = px.pie(
+            values=percentages,
+            names=grades,
+            color_discrete_sequence=colors,
+            title="Distribution of Nutrition Grades"
+        )
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(showlegend=True)
+        
+        st.plotly_chart(fig, use_container_width=True)
         st.caption("Based on normalized 1-100 scoring system with 1.333x multiplier")
     else:
         st.info("No grade distribution available.")

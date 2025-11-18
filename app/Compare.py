@@ -120,7 +120,7 @@ def _style_table(table: pd.DataFrame, suffix: str) -> "pd.io.formats.style.Style
             if not valid:
                 styles.append("")
             elif np.isclose(value, target):
-                styles.append("background-color: #e7f4ea; font-weight: 600;")
+                styles.append("background-color: #2E8B57; color: white; font-weight: 600;")
             else:
                 styles.append("")
         return styles

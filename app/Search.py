@@ -83,19 +83,19 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         brand_options += [brand for brand in top_brands if brand and brand != ""]
 
     with st.sidebar:
-        st.header("🔍 Advanced Filters")
+        st.header("Advanced Filters")
         
         # Basic filters - all visible and expanded
-        st.subheader("✓ Basic Nutrient Filters")
-        low_sodium = st.checkbox("🥬 Low sodium (≤140mg/100g)", key="filter_low_sodium")
-        high_fiber = st.checkbox("🌾 High fiber (≥5g/100g)", key="filter_high_fiber")
-        low_sugar = st.checkbox("🍯 Low sugar (≤5g/100g)", key="filter_low_sugar")
-        high_protein = st.checkbox("🥩 High protein (≥10g/100g)", key="filter_high_protein")
+        st.subheader("Basic Nutrient Filters")
+        low_sodium = st.checkbox("Low sodium (≤140mg/100g)", key="filter_low_sodium")
+        high_fiber = st.checkbox("High fiber (≥5g/100g)", key="filter_high_fiber")
+        low_sugar = st.checkbox("Low sugar (≤5g/100g)", key="filter_low_sugar")
+        high_protein = st.checkbox("High protein (≥10g/100g)", key="filter_high_protein")
         
         st.markdown("---")  # Visual separator
         
         # Grade filter - expanded with clear options
-        st.subheader("📊 Grade Filter")
+        st.subheader("Grade Filter")
         grade_choice = st.selectbox(
             "Select Grade", 
             options=grade_options, 
@@ -106,7 +106,7 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         st.markdown("---")  # Visual separator
         
         # Food characteristics - all visible
-        st.subheader("🏷️ Food Characteristics")
+        st.subheader("Food Characteristics")
         form_choice = st.selectbox(
             "Food Form", 
             options=form_options, 
@@ -129,7 +129,7 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         st.markdown("---")  # Visual separator
         
         # Nutrient ranges - all sliders visible
-        st.subheader("📈 Nutrient Ranges (per 100g)")
+        st.subheader("Nutrient Ranges (per 100g)")
         
         # Initialize range variables with wider default ranges
         kcal_range = (0, 500)
@@ -145,10 +145,10 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(kcal_data) > 0:
                 kcal_min, kcal_max = int(kcal_data.min()), int(kcal_data.max())
                 kcal_range = st.slider(
-                    "🔥 Calories (kcal)", 
-                    min_value=0, 
-                    max_value=max(500, kcal_max), 
-                    value=(0, max(300, kcal_max)), 
+                    "Calories (kcal)",
+                    min_value=0,
+                    max_value=max(500, kcal_max),
+                    value=(0, max(300, kcal_max)),
                     key="filter_kcal_range",
                     help="Set calorie range per 100g"
                 )
@@ -159,10 +159,10 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(protein_data) > 0:
                 protein_min, protein_max = int(protein_data.min()), int(protein_data.max())
                 protein_range = st.slider(
-                    "🥩 Protein (g)", 
-                    min_value=0, 
-                    max_value=max(50, protein_max), 
-                    value=(0, max(30, protein_max)), 
+                    "Protein (g)",
+                    min_value=0,
+                    max_value=max(50, protein_max),
+                    value=(0, max(30, protein_max)),
                     key="filter_protein_range",
                     help="Set protein range per 100g"
                 )
@@ -173,10 +173,10 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(carbs_data) > 0:
                 carbs_min, carbs_max = int(carbs_data.min()), int(carbs_data.max())
                 carbs_range = st.slider(
-                    "🍞 Carbs (g)", 
-                    min_value=0, 
-                    max_value=max(100, carbs_max), 
-                    value=(0, max(50, carbs_max)), 
+                    "Carbs (g)",
+                    min_value=0,
+                    max_value=max(100, carbs_max),
+                    value=(0, max(50, carbs_max)),
                     key="filter_carbs_range",
                     help="Set carbohydrate range per 100g"
                 )
@@ -187,10 +187,10 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(fat_data) > 0:
                 fat_min, fat_max = int(fat_data.min()), int(fat_data.max())
                 fat_range = st.slider(
-                    "🥑 Total Fat (g)", 
-                    min_value=0, 
-                    max_value=max(50, fat_max), 
-                    value=(0, max(25, fat_max)), 
+                    "Total Fat (g)",
+                    min_value=0,
+                    max_value=max(50, fat_max),
+                    value=(0, max(25, fat_max)),
                     key="filter_fat_range",
                     help="Set total fat range per 100g"
                 )
@@ -201,10 +201,10 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(sodium_data) > 0:
                 sodium_min, sodium_max = int(sodium_data.min()), int(sodium_data.max())
                 sodium_range = st.slider(
-                    "🧂 Sodium (mg)", 
-                    min_value=0, 
-                    max_value=max(2000, sodium_max), 
-                    value=(0, max(1000, sodium_max)), 
+                    "Sodium (mg)",
+                    min_value=0,
+                    max_value=max(2000, sodium_max),
+                    value=(0, max(1000, sodium_max)),
                     key="filter_sodium_range",
                     help="Set sodium range per 100g"
                 )
@@ -216,16 +216,16 @@ def _apply_filters_optimized(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             if len(score_data) > 0:
                 score_min, score_max = int(score_data.min()), int(score_data.max())
                 score_range = st.slider(
-                    "⭐ Nutrition Score", 
-                    min_value=0, 
-                    max_value=100, 
-                    value=(0, 100), 
+                    "Nutrition Score",
+                    min_value=0,
+                    max_value=100,
+                    value=(0, 100),
                     key="filter_score_range",
                     help="Set nutrition score range (higher is better)"
                 )
 
         st.markdown("---")  # Visual separator
-        st.caption("💡 Tip: Combine multiple filters for precise results")
+        st.caption("Tip: Combine multiple filters for precise results")
 
     # Store filter state for caching
     filter_state = {
@@ -366,7 +366,7 @@ def _create_search_cache_key(dataset_hash: str, query: str, filters: dict) -> st
     return hashlib.md5(cache_str.encode()).hexdigest()
 
 def main() -> None:
-    st.set_page_config(page_title="Nutrition Explorer", page_icon="🥗", layout="wide")
+    st.set_page_config(page_title="Nutrition Explorer", page_icon=":material/restaurant:", layout="wide")
     st.title("Search Foods")
     render_nav("Search")
     service = load_service_or_error()
@@ -413,9 +413,9 @@ def main() -> None:
 
     # Show search status
     if query and query != debounced_query:
-        st.info("🔍 Searching...")
+        st.info("Searching...")
     elif debounced_query:
-        st.success(f"🔍 Searching for: {debounced_query}")
+        st.success(f"Searching for: {debounced_query}")
 
     # Perform search with optimized function - REMOVE ALL LIMITS
     with st.spinner("Processing search..."):
@@ -478,7 +478,7 @@ def main() -> None:
     )
 
     # Show total dataset info
-    st.info(f"📊 Total dataset size: {len(dataset):,} foods | Showing: {len(filtered):,} results")
+    st.info(f"Total dataset size: {len(dataset):,} foods | Showing: {len(filtered):,} results")
 
     _render_rows(filtered, service)
 

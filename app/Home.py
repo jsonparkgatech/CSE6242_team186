@@ -36,7 +36,7 @@ from app.utils import load_service_or_error, render_nav, quick_nav_button
 from src.scoring_system import apply_box_cox_normalization, assign_grades, get_score_statistics, get_grade_distribution
 
 def main() -> None:
-    st.set_page_config(page_title="Nutrition Explorer", page_icon="🥗", layout="wide")
+    st.set_page_config(page_title="Nutrition Explorer", page_icon=":material/restaurant:", layout="wide")
     st.title("Nutrition Explorer")
     render_nav("Home")
     service = load_service_or_error()

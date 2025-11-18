@@ -161,7 +161,7 @@ def _style_table(table: pd.DataFrame, suffix: str) -> "pd.io.formats.style.Style
 
 
 def main() -> None:
-    st.set_page_config(page_title="Nutrition Explorer", page_icon="🥗", layout="wide")
+    st.set_page_config(page_title="Nutrition Explorer", page_icon=":material/restaurant:", layout="wide")
     st.title("Compare Foods")
     render_nav("Compare")
     service = load_service_or_error()

@@ -66,7 +66,7 @@ def main():
 if __name__ == "__main__":
     success = main()
     if success:
-        print("\n🚀 Fast index ready for substitute recommendations!")
+        print("\nFast index ready for substitute recommendations!")
     else:
-        print("\n💥 Failed to build fast index.")
+        print("\nFailed to build fast index.")
         sys.exit(1)

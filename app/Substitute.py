@@ -137,7 +137,7 @@ def _render_cards(subs, dataset, service) -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Nutrition Explorer", page_icon="🥗", layout="wide")
+    st.set_page_config(page_title="Nutrition Explorer", page_icon=":material/restaurant:", layout="wide")
     st.title("Find Substitutes")
     render_nav("Substitute")
     service = load_service_or_error()

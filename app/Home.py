@@ -45,14 +45,14 @@ def main() -> None:
     dataset = service.dataset
     score_col = service.score_column
 
-    st.markdown(
-        """
-        Explore USDA FoodData Central foods, track nutrient strengths, and discover
-        healthier swaps powered by our scoring model. Use the quick actions below to dive in.
-        
-        Visualization uses a random subset.
-        """
-    )
+    # Project description
+    st.markdown("""
+    ## About Nutrition Explorer
+    
+    **Nutrition Explorer** addresses the growing need for accessible, data-driven nutrition guidance in an era where consumers are increasingly health-conscious but lack reliable tools to make informed food choices. Our platform empowers users to discover healthier food alternatives through comprehensive nutrient analysis, personalized scoring systems, and intelligent substitution recommendations. Key features include advanced food search with multi-dimensional filtering, detailed nutritional breakdowns, side-by-side food comparisons, and AI-powered substitute suggestions that consider both nutritional improvements and user preferences. The application serves consumers, nutritionists, dietitians, and food product developers seeking to understand food quality, make better dietary decisions, and identify healthier alternatives that maintain taste preferences while optimizing nutritional profiles.
+    
+    Built with modern data science and machine learning technologies, Nutrition Explorer processes over 350,000 food items from the USDA FoodData Central database using advanced normalization techniques and sophisticated scoring algorithms. The platform employs Facebook's embedding technology for fast similarity searches, implements Box-Cox normalization for score distribution optimization, and uses a grade-based classification system (A-F) to make complex nutritional data accessible to non-experts. The technical architecture prioritizes performance through feature reduction, optimized algorithms, and efficient data processing pipelines, ensuring real-time responses even with large-scale nutritional datasets.
+    """)
 
     # Use the new normalized scoring system with 1.333x multiplier
     if score_col in dataset.columns:
@@ -133,39 +133,6 @@ def main() -> None:
         st.caption("Based on normalized 1-100 scoring system with 1.333x multiplier")
     else:
         st.info("No grade distribution available.")
-
-    st.divider()
-    st.subheader("Nutrient highlights")
-    
-    # Define nutrient features for statistics
-    nutrient_features_stats = [
-        "protein_g_per100g",
-        "total_fat_g_per100g", 
-        "carbs_g_per100g",
-        "energy_kcal_per100g",
-        "sugar_g_per100g",
-        "sodium_mg_per100g",
-        "fiber_g_per100g"
-    ]
-    
-    # Calculate and display statistics for each feature
-    stats_data = []
-    for feature in nutrient_features_stats:
-        if feature in dataset.columns:
-            feature_data = dataset[feature].dropna()
-            if len(feature_data) > 0:
-                stats_data.append({
-                    'Nutrient': feature.replace('_', ' ').title(),
-                    'Mean': round(feature_data.mean(), 0),
-                    'Median': round(feature_data.median(), 0),
-                    'Std Dev': round(feature_data.std(), 0)
-                })
-    
-    if stats_data:
-        stats_df = pd.DataFrame(stats_data)
-        st.dataframe(stats_df, width='stretch')
-    else:
-        st.info("No nutrient data available for statistics.")
 
     st.caption(
         "Data sourced from USDA FoodData Central. Scores and grades use the new normalized 1-100 system with 1.333x multiplier."

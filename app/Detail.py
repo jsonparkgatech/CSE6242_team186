@@ -127,7 +127,7 @@ def _driver_text(drivers: Dict[str, List[str]]) -> str:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Nutrition Explorer", page_icon="🥗", layout="wide")
+    st.set_page_config(page_title="Nutrition Explorer", page_icon=":material/restaurant:", layout="wide")
     st.title("Food Detail")
     render_nav("Detail")
     service = load_service_or_error()
